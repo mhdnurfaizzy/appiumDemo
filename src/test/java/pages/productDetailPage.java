@@ -34,6 +34,9 @@ public class productDetailPage {
     @FindBy(xpath = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/productTV\"]")
     public WebElement productNameText;
 
+    @FindBy(xpath = "//android.widget.ImageView[@content-desc=\"Displays number of items in your cart\"]")
+    public WebElement toCartBtn;
+
     public productDetailPage(AndroidDriver driver) {
         this.driver = driver;
         PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(10)), this);
@@ -75,6 +78,10 @@ public class productDetailPage {
         try {
             wait.until(ExpectedConditions.visibilityOf(quantityField));
         } catch (Exception ignored) {}
+    }
+
+    public void toCartBtn() {
+        wait.until(ExpectedConditions.elementToBeClickable(toCartBtn)).click();
     }
 
 }
