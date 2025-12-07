@@ -28,6 +28,8 @@ public class thankYouPage {
     @FindBy(xpath = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/orderTV\"]")
     WebElement orderSuccessMsg;
 
+    @FindBy(xpath = "//android.widget.Button[@content-desc=\"Tap to open catalog\"]")
+    WebElement backToHomeBtn;
     // Helper
     private void waitVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -46,6 +48,11 @@ public class thankYouPage {
         String completeOrderMsg = orderSuccessMsg.getText();
         System.out.println("Checkout Complete Title: " + completeOrderMsg);
         return completeOrderMsg;
+    }
+
+    public void clickBackToHome() {
+        waitVisible(backToHomeBtn);
+        backToHomeBtn.click();
     }
 
 

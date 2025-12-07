@@ -88,9 +88,33 @@ public class sauceLabsTest extends BaseTest {
         Assert.assertEquals(actualTextOrderComplete, expectedTextOrderComplete, "Order Complete Title is expected");
         Assert.assertEquals(actualTextOrderCompleteMsg, expectedTextOrderCompleteMsg, "Order Complete Message is expected");
         System.out.println("Berhasil ke halaman Thank You");
+        thankYou.clickBackToHome();
+        System.out.println("Berhasil ke Home Page setelah melakukan pembelian produk");
         /* End of Thank You Page*/
-
     }
+
+    @Test
+    public void testSorting() {
+        productPage productsPage = new productPage(driver);
+        loginPage loginPage = new loginPage(driver);
+
+        //Step
+        loginPage.openLoginForm();
+        loginPage.login("bod@example.com", "10203040");
+        System.out.println("Sukses Login");
+
+        // Sort by Product Name Descending
+        productsPage.sortByNameDescending();
+        Assert.assertTrue(productsPage.isSortedByNameDescending(),
+                "Product list NOT sorted by name descending");
+
+        // Sort by Price Ascending
+        productsPage.sortByPriceAscending();
+        Assert.assertTrue(productsPage.isSortedByPriceAscending(),
+                "Product list NOT sorted by price ascending");
+    }
+
+
 
 
 }
