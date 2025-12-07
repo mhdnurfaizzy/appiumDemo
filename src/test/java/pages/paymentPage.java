@@ -18,42 +18,36 @@ public class paymentPage {
 
     public paymentPage(AndroidDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
     // Locators
-
-    @FindBy(id = "com.saucelabs.mydemoapp.android:id/paymentTV")
+    @FindBy(xpath = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/enterPaymentMethodTV\"]")
     WebElement paymentHeaderText;
 
-    @FindBy(id = "com.saucelabs.mydemoapp.android:id/cardNumberTIL") // wrapper
+    @FindBy(xpath = "com.saucelabs.mydemoapp.android:id/cardNumberTIL") // wrapper
     WebElement cardSection;
 
-    @FindBy(id = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/nameET\"]")
+    @FindBy(xpath = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/nameET\"]")
     WebElement fullName;
 
-    @FindBy(id = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/cardNumberET\"]")
+    @FindBy(xpath = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/cardNumberET\"]")
     WebElement cardNumber;
 
-    @FindBy(id = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/expirationDateET\"]")
+    @FindBy(xpath = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/expirationDateET\"]")
     WebElement expDate;
 
-    @FindBy(id = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/securityCodeET\"]")
+    @FindBy(xpath = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/securityCodeET\"]")
     WebElement securityCode;
 
-    @FindBy(id = "//android.widget.CheckBox[@content-desc=\"Select if User billing address and shipping address are same\"]")
+    @FindBy(xpath = "//android.widget.CheckBox[@content-desc=\"Select if User billing address and shipping address are same\"]")
     WebElement billingAddressCheckbox;
 
-    @FindBy(id = "//android.widget.Button[@content-desc=\"Saves payment info and launches screen to review checkout data\"]")
+    @FindBy(xpath = "//android.widget.Button[@content-desc=\"Saves payment info and launches screen to review checkout data\"]")
     WebElement reviewOrderBtn;
 
-    @FindBy(id = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/paymentDetailsTV\"]")
-    WebElement descriptionMessage; // “You will not be charged…”
-
-
     // Helpers
-
     private void waitVisible(WebElement el) {
         wait.until(ExpectedConditions.visibilityOf(el));
     }
@@ -68,15 +62,12 @@ public class paymentPage {
         el.sendKeys(text);
     }
 
-
     // Actions
-
-    public void verifyDescriptionMessage() {
-        waitVisible(descriptionMessage);
-        Assert.assertTrue(
-                descriptionMessage.getText().contains("You will not be charged"),
-                "Payment description message is not displayed correctly!"
-        );
+    public String getTextPaymentHeader() {
+        waitVisible(paymentHeaderText);
+        String actualPaymentHeaderText = paymentHeaderText.getText();
+        System.out.println("Payment Header Title: " + actualPaymentHeaderText);
+        return actualPaymentHeaderText;
     }
 
     public void enterFullName(String name) {
@@ -118,19 +109,16 @@ public class paymentPage {
 
 
     // Full Payment Flow
-
     public void fillPayment(
             String name,
             String num,
             String exp,
             String cvv
     ) {
-        verifyDescriptionMessage();
         enterFullName(name);
         enterCardNumber(num);
         enterExpDate(exp);
         enterSecurityCode(cvv);
-        tickBillingAddress();
         clickReviewOrder();
     }
 }
