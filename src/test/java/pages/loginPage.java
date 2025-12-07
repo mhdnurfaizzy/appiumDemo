@@ -22,6 +22,12 @@ public class loginPage {
     @FindBy(xpath = "//android.widget.TextView[@content-desc=\"Login Menu Item\"]")
     public WebElement loginBtn;
 
+    @FindBy(xpath = "//android.widget.TextView[@content-desc=\"Logout Menu Item\"]")
+    public WebElement logoutBtn;
+
+    @FindBy(xpath = "//android.widget.Button[@resource-id=\"android:id/button1\"]")
+    public WebElement logoutBtnConfirm;
+
     // Login Page
     @FindBy(xpath = "//android.widget.EditText[@resource-id=\"com.saucelabs.mydemoapp.android:id/nameET\"]")
     public WebElement usernameField;
@@ -47,6 +53,12 @@ public class loginPage {
         wait.until(ExpectedConditions.visibilityOf(usernameField)).sendKeys(user);
         wait.until(ExpectedConditions.visibilityOf(passwordField)).sendKeys(pass);
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+    }
+
+    public void logout() {
+        wait.until(ExpectedConditions.elementToBeClickable(humbergerBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(logoutBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(logoutBtnConfirm)).click();
     }
 
 }

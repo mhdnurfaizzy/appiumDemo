@@ -10,18 +10,7 @@ import org.testng.Assert; // added import
 public class sauceLabsTest extends BaseTest {
 
     @Test()
-    public void loginSuccess(){
-        loginPage loginPage = new loginPage(driver);
-
-        //Step
-        loginPage.openLoginForm();
-        loginPage.login("bod@example.com", "10203040");
-        System.out.println("Sukses Login");
-    }
-
-    @Test()
-    public void userCanBuyProduct() {
-        loginPage loginPage = new loginPage(driver);
+    public void userCanBuyProduct() throws InterruptedException {
         pages.productDetailPage productDetailPage = new pages.productDetailPage(driver);
         checkoutPage checkout = new checkoutPage(driver);
         cartPage cart = new cartPage(driver);
@@ -30,7 +19,7 @@ public class sauceLabsTest extends BaseTest {
         reviewOrderPage reviewOrder = new reviewOrderPage(driver);
 
         /* Product Details Page */
-        productDetailPage.clickProductDetails();
+        productDetailPage.clickProductByName("Sauce Labs Backpack");
         productDetailPage.chooseBlueColor();
         productDetailPage.setQuantity(2);
         productDetailPage.addToCart();
@@ -96,12 +85,6 @@ public class sauceLabsTest extends BaseTest {
     @Test
     public void testSorting() {
         productPage productsPage = new productPage(driver);
-        loginPage loginPage = new loginPage(driver);
-
-        //Step
-        loginPage.openLoginForm();
-        loginPage.login("bod@example.com", "10203040");
-        System.out.println("Sukses Login");
 
         // Sort by Product Name Descending
         productsPage.sortByNameDescending();
