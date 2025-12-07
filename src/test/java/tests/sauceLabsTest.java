@@ -29,12 +29,6 @@ public class sauceLabsTest extends BaseTest {
         thankYouPage thankYou = new thankYouPage(driver);
         reviewOrderPage reviewOrder = new reviewOrderPage(driver);
 
-        /* Login Page*/
-//        loginPage.openLoginForm();
-//        loginPage.login("bod@example.com", "10203040");
-//        System.out.println("Sukses Login");
-        /* End Of Login Page*/
-
         /* Product Details Page */
         productDetailPage.clickProductDetails();
         productDetailPage.chooseBlueColor();
@@ -65,6 +59,7 @@ public class sauceLabsTest extends BaseTest {
         /* End of Checkout Page*/
 
         /* Payment Page*/
+        payment.getTextPaymentHeader();
         payment.fillPayment(
                 "Rebecca Winter",
                 "3258 1256 7568 7891",
@@ -88,8 +83,8 @@ public class sauceLabsTest extends BaseTest {
         /* Thank You Page */
         String actualTextOrderComplete = thankYou.getTextOrderComplete();
         String actualTextOrderCompleteMsg = thankYou.getTextOrderCompleteMsg();
-        String expectedTextOrderComplete = "THANK YOU FOR YOUR ORDER";
-        String expectedTextOrderCompleteMsg = "Your order has been dispatched, and will arrive just as fast as the pony can get there!";
+        String expectedTextOrderComplete = "Checkout Complete";
+        String expectedTextOrderCompleteMsg = "Your order has been dispatched and will arrive as fast as the pony gallops!";
         Assert.assertEquals(actualTextOrderComplete, expectedTextOrderComplete, "Order Complete Title is expected");
         Assert.assertEquals(actualTextOrderCompleteMsg, expectedTextOrderCompleteMsg, "Order Complete Message is expected");
         System.out.println("Berhasil ke halaman Thank You");
