@@ -25,7 +25,7 @@ public class productDetailPage {
     @FindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup")
     List<WebElement> productsCard;
 
-    @FindBy(xpath =  "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/titleTV\"]")
+    @FindBy(xpath = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/titleTV\"]")
     public WebElement products;
 
     @FindBy(xpath = "//android.widget.ImageView[@content-desc=\"Blue color\"]")
@@ -52,49 +52,33 @@ public class productDetailPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    public void clickProductByName(String targetName) {
-        // Build an XPath that finds the title TextView containing the target text (tolerant to surrounding whitespace)
-        String escapedName = targetName.replace("'", "\\'");
-        String containerXpath = "//android.widget.TextView[@resource-id='com.saucelabs.mydemoapp.android:id/titleTV' and contains(normalize-space(@text), '" + escapedName + "')]/ancestor::android.view.ViewGroup[1]";
+    public void scrollToProduct(String textFromOutside, String price) {
+        WebElement productName = driver.findElement(new AppiumBy.ByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"" + textFromOutside + "\"))"));
+        WebElement productPrice = driver.findElement(new AppiumBy.ByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"" + price + "\"))"));
 
-        int maxAttempts = 6; // try a few times with scrolling
-        for (int attempt = 0; attempt < maxAttempts; attempt++) {
-            try {
-                // Wait briefly for the container to be present and clickable
-                WebElement container = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath(containerXpath)));
-                System.out.println("Found and clicking product container for '" + targetName + "'");
-                container.click();
-                return;
-            } catch (Exception e) {
-                // Not found/clickable yet → try to bring it into view using UiScrollable
-                System.out.println("Attempt " + (attempt + 1) + ": product not clickable/found yet ('" + targetName + "'), trying to scroll into view");
-                try {
-                    // Use UiScrollable to scroll to the text; this is more reliable for lists
-                    String uiScroll = "new UiScrollable(new UiSelector().scrollable(true))" +
-                            ".scrollIntoView(new UiSelector().textContains(\"" + targetName + "\"))";
-                    driver.findElement(AppiumBy.androidUIAutomator(uiScroll));
-                    // small pause to allow UI to settle
-                    Thread.sleep(400);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                } catch (Exception scrollEx) {
-                    // scrolling failed - maybe end of list
-                    System.out.println("Scroll attempt failed or reached end: " + scrollEx.getMessage());
-                }
-            }
-        }
+        productName.isDisplayed();
+        productPrice.isDisplayed();
 
-        // Final attempt: try a broader search for the title element and click its parent if found
-        try {
-            WebElement title = driver.findElement(AppiumBy.id("com.saucelabs.mydemoapp.android:id/titleTV"));
-            if (title != null && title.getText() != null && title.getText().equalsIgnoreCase(targetName)) {
-                WebElement container = title.findElement(AppiumBy.xpath("ancestor::android.view.ViewGroup"));
-                wait.until(ExpectedConditions.elementToBeClickable(container)).click();
-                return;
-            }
-        } catch (Exception ignored) {}
+        System.out.println("Sukses click produk");
+    }
 
-        throw new RuntimeException("Product not found or not clickable after scrolling attempts: " + targetName);
+    public WebElement getProductContainer(String targetName) {
+
+        String xpath =
+                "//android.widget.TextView[@content-desc='Product Title' and @text='" + targetName + "']" +
+                        "/ancestor::android.view.ViewGroup[1]";
+
+        return driver.findElement(By.xpath(xpath));
+
+    }
+
+    public void clickProduct() throws InterruptedException {
+        WebElement title = getProductContainer("Sauce Labs Backpack");
+        title.isDisplayed();
+        Thread.sleep(1000);
+        title.click();
+        System.out.println("Sukses click produk 2");
+
     }
 
     public void chooseBlueColor() {

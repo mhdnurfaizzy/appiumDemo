@@ -17,9 +17,21 @@ public class sauceLabsTest extends BaseTest {
         paymentPage payment = new paymentPage(driver);
         thankYouPage thankYou = new thankYouPage(driver);
         reviewOrderPage reviewOrder = new reviewOrderPage(driver);
+        productPage productsPage = new productPage(driver);
+
+        // Sort by Product Name Descending
+        productsPage.sortByNameDescending();
+        Assert.assertTrue(productsPage.isSortedByNameDescending(),
+                "Product list NOT sorted by name descending");
+
+        // Sort by Price Ascending
+        productsPage.sortByPriceAscending();
+        Assert.assertTrue(productsPage.isSortedByPriceAscending(),
+                "Product list NOT sorted by price ascending");
 
         /* Product Details Page */
-        productDetailPage.clickProductByName("Sauce Labs Backpack");
+        productDetailPage.scrollToProduct("Sauce Labs Backpack", "$ 29.99");
+        productDetailPage.clickProduct();
         productDetailPage.chooseBlueColor();
         productDetailPage.setQuantity(2);
         productDetailPage.addToCart();
