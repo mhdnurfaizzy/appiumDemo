@@ -32,7 +32,7 @@ Validates sorting functionality on product list page:
 	•	Ascending price filter
 	•	Descending name filter
 
----
+⸻
 
 Project Structure
 
@@ -72,7 +72,7 @@ Contains:
 	•	verify product filter ascending
 	•	verify product filter descending
 
----
+⸻
 
 🛠️ Tech Stack
 
@@ -95,7 +95,7 @@ Core libraries used:
 	•	org.testng:testng
 	•	com.google.guava:guava
 
----
+⸻
 
 How to Run the Tests
 
@@ -114,7 +114,8 @@ appium
 
 mvn clean test
 
----
+
+⸻
 
 📱 Demo App
 
@@ -122,13 +123,7 @@ This project automates the Sauce Labs Sample App:
   [apk
 a-2.2.0-25.apk.](https://github.com/saucelabs/my-demo-app-android/releases/download/2.2.0/mda-2.2.0-25.apk)
 
-
-
----
-
-Result
-
-Drive : [Link Here](https://drive.google.com/file/d/15Iew3cMlcLzM-Ea6Azk4tz4iUpZUvtQ8/view?usp=sharing)
+⸻
 
 🎯 Purpose of This Project
 
@@ -139,7 +134,7 @@ This project is created as a learning and demonstration repo for building a clea
 	•	Realistic e-commerce test cases
 	•	Clean, maintainable code structure
 
----
+⸻
 
 
 
