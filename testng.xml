@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Appium Test Suite">
+
+    <test name="Sauce Labs Tests">
+        <classes>
+            <class name="tests.productTest"/>
+            <class name="tests.orderTest"/>
+        </classes>
+    </test>
+
+</suite>

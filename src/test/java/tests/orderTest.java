@@ -7,7 +7,7 @@ import pages.*;
 import org.testng.Assert; // added import
 
 
-public class sauceLabsTest extends BaseTest {
+public class orderTest extends BaseTest {
 
     @Test()
     public void userCanBuyProduct() throws InterruptedException {
@@ -17,17 +17,6 @@ public class sauceLabsTest extends BaseTest {
         paymentPage payment = new paymentPage(driver);
         thankYouPage thankYou = new thankYouPage(driver);
         reviewOrderPage reviewOrder = new reviewOrderPage(driver);
-        productPage productsPage = new productPage(driver);
-
-        // Sort by Product Name Descending
-        productsPage.sortByNameDescending();
-        Assert.assertTrue(productsPage.isSortedByNameDescending(),
-                "Product list NOT sorted by name descending");
-
-        // Sort by Price Ascending
-        productsPage.sortByPriceAscending();
-        Assert.assertTrue(productsPage.isSortedByPriceAscending(),
-                "Product list NOT sorted by price ascending");
 
         /* Product Details Page */
         productDetailPage.scrollToProduct("Sauce Labs Backpack", "$ 29.99");
@@ -93,23 +82,5 @@ public class sauceLabsTest extends BaseTest {
         System.out.println("Berhasil ke Home Page setelah melakukan pembelian produk");
         /* End of Thank You Page*/
     }
-
-    @Test
-    public void testSorting() {
-        productPage productsPage = new productPage(driver);
-
-        // Sort by Product Name Descending
-        productsPage.sortByNameDescending();
-        Assert.assertTrue(productsPage.isSortedByNameDescending(),
-                "Product list NOT sorted by name descending");
-
-        // Sort by Price Ascending
-        productsPage.sortByPriceAscending();
-        Assert.assertTrue(productsPage.isSortedByPriceAscending(),
-                "Product list NOT sorted by price ascending");
-    }
-
-
-
 
 }

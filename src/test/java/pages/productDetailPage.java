@@ -12,21 +12,12 @@ import io.appium.java_client.AppiumBy;
 
 
 import java.time.Duration;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class productDetailPage {
 
 
     AndroidDriver driver;
     public final WebDriverWait wait;
-
-    @FindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup")
-    List<WebElement> productsCard;
-
-    @FindBy(xpath = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/titleTV\"]")
-    public WebElement products;
 
     @FindBy(xpath = "//android.widget.ImageView[@content-desc=\"Blue color\"]")
     public WebElement colorBlue;
@@ -59,7 +50,7 @@ public class productDetailPage {
         productName.isDisplayed();
         productPrice.isDisplayed();
 
-        System.out.println("Sukses click produk");
+        System.out.println("Sukses find produk by scroll");
     }
 
     public WebElement getProductContainer(String targetName) {
@@ -67,16 +58,13 @@ public class productDetailPage {
         String xpath =
                 "//android.widget.TextView[@content-desc='Product Title' and @text='" + targetName + "']" +
                         "/ancestor::android.view.ViewGroup[1]";
-
         return driver.findElement(By.xpath(xpath));
-
     }
 
     public void clickProduct() throws InterruptedException {
         WebElement title = getProductContainer("Sauce Labs Backpack");
         title.isDisplayed();
-        Thread.sleep(1000);
-        title.click();
+        wait.until(ExpectedConditions.elementToBeClickable(title)).click();
         System.out.println("Sukses click produk 2");
 
     }
