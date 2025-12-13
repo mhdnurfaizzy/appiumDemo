@@ -169,7 +169,11 @@ This repository is created as a **learning and demonstration project** to showca
 
 ---
 
-Siap 👍 Aku tambahin **Notes**-nya dengan wording yang rapi & profesional (aman buat README):
+
+## 📱 Video Result
+
+👉 [SauceLabs Appium Demo Result](https://drive.google.com/file/d/1Ko1TrHHfAbFOogdEfhALPiWHoIKpwqGQ/view?usp=sharing)
+
 
 ---
 
